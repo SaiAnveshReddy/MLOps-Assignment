@@ -224,11 +224,12 @@ To inspect the runs interactively:
 mlflow ui --backend-store-uri file:./mlruns
 ```
 
-<img src="../screenshots/05_mlflow_ui.png" alt="MLflow experiment comparison (placeholder - replace with your own screenshot)" style="width:280pt;" />
+<img src="../screenshots/05_mlflow_ui.png" alt="MLflow experiment comparison" style="width:320pt;" />
 
-*(Screenshot to be captured from the live `mlflow ui` after running
-`python -m heart_mlops.train` on your machine - see
-`screenshots/05_mlflow_ui.png`.)*
+The table above is the live `mlflow ui` for this project's `cardiorisk-heart-disease`
+experiment, with the logged metric columns enabled - the `test_roc_auc`
+values (0.9037 random_forest, 0.9221 logistic_regression) match Section 4.3
+exactly, confirming the two don't drift apart.
 
 ## 6. Task 4 - Model Packaging & Reproducibility
 
@@ -460,7 +461,7 @@ MLflow run registry to a proper Model Registry stage (`Staging` ->
 
 ## 14. Repository Link
 
-GitHub repository: **<GITHUB_REPO_URL>**
+GitHub repository: **https://github.com/SaiAnveshReddy/MLOps-Assignment**
 
 Deployed API: local-only for this submission (Minikube) - see Section 9 and
 `k8s/README.md` for access instructions; no public cloud endpoint was

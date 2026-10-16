@@ -25,3 +25,4 @@ Thumbs.db
 # Original UCI download bundle - superseded by data/raw/processed.cleveland.data
 heart+disease/
 MLOps Assignment 1 Instructions.pdf
+mlflow_ui.log
