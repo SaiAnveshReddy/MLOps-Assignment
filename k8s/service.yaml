@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cardiorisk-api-service
+  labels:
+    app: cardiorisk-api
+spec:
+  type: LoadBalancer
+  selector:
+    app: cardiorisk-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000

@@ -1,0 +1,27 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+mlruns/
+mlartifacts/
+.mlflow/
+
+report/_report_render.html
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+.ipynb_checkpoints/
+
+.claude/
+.DS_Store
+Thumbs.db
+
+# Original UCI download bundle - superseded by data/raw/processed.cleveland.data
+heart+disease/
+MLOps Assignment 1 Instructions.pdf
