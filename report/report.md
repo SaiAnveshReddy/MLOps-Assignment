@@ -304,7 +304,7 @@ A failure at any step (bad lint, a failing test, a training exception)
 fails the whole job with the underlying tool's native log output - no steps
 swallow errors.
 
-<img src="../screenshots/02_github_actions_run.png" alt="GitHub Actions run (placeholder - replace with your own screenshot)" style="width:280pt;" />
+<img src="../screenshots/02_github_actions_run.png" alt="GitHub Actions CI run - lint-test-train job passing" style="width:280pt;" />
 
 ## 8. Task 6 - Model Containerization
 
