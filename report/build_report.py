@@ -31,17 +31,18 @@ CHROME_CANDIDATES = [
 ]
 
 CSS = """
-@page { size: A4; margin: 2cm 2cm 2.3cm 2cm; }
-body { font-family: Helvetica, Arial, sans-serif; font-size: 10.5pt; line-height: 1.45; color: #1a1a1a; }
+@page { size: A4; margin: 1.7cm 1.8cm 1.8cm 1.8cm; }
+body { font-family: Helvetica, Arial, sans-serif; font-size: 10pt; line-height: 1.4; color: #1a1a1a; }
 h1 { font-size: 21pt; color: #1f3b57; margin-top: 0; }
-h2 { font-size: 15pt; color: #1f3b57; border-bottom: 1.5pt solid #1f3b57; padding-bottom: 3px; margin-top: 22px; }
+h2 { font-size: 15pt; color: #1f3b57; border-bottom: 1.5pt solid #1f3b57; padding-bottom: 3px; margin-top: 18px; page-break-after: avoid; }
 h3 { font-size: 12.5pt; color: #2b4f70; margin-top: 16px; }
 code { font-family: Courier, monospace; background-color: #f0f0f0; padding: 1px 3px; font-size: 9.5pt; }
 pre { font-family: Courier, monospace; background-color: #f4f4f4; padding: 8px; font-size: 9pt;
       border: 0.5pt solid #ccc; white-space: pre-wrap; }
 table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 9.5pt; page-break-inside: avoid; }
-th, td { border: 0.5pt solid #999; padding: 5px 7px; text-align: left; }
+th, td { border: 0.5pt solid #999; padding: 4px 6px; vertical-align: top; text-align: left; }
 th { background-color: #1f3b57; color: white; }
+th code { background: transparent; color: inherit; }
 img { max-width: 100%; }
 a { color: #1f5fa0; }
 hr { border: none; border-top: 0.5pt solid #ccc; }
