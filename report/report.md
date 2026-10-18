@@ -324,14 +324,13 @@ curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -
 # -> {"prediction":1,"risk_label":"high_risk","confidence":0.93,...}
 ```
 
-The API itself was verified locally (outside Docker, via `uvicorn` directly)
-during development - `/health`, `/predict`, and `/metrics` all returned
-correct responses, and structured JSON request logs were confirmed on
-stdout. The Docker build/run step above is to be executed and screenshotted
-on a machine with Docker Desktop installed (not available in the authoring
-environment for this submission).
+The image was built and run under Docker Desktop: the container reports
+`(healthy)` via the Dockerfile's `HEALTHCHECK`, `/health` and `/predict`
+respond correctly on port 8000 (the sample high-risk patient comes back as
+`high_risk` with 0.93 probability), and `docker logs` shows the structured
+JSON request log lines.
 
-<img src="../screenshots/01_docker_build_run.png" alt="Docker build and run (placeholder - replace with your own screenshot)" style="width:280pt;" />
+<img src="../screenshots/01_docker_build_run.png" alt="Docker build, run, health check and /predict call" style="width:280pt;" />
 
 ## 9. Task 7 - Production Deployment (Kubernetes / Minikube)
 
@@ -346,9 +345,9 @@ and limits. `k8s/service.yaml` exposes it as a `LoadBalancer` Service on
 port 80 -> container port 8000 (full step-by-step in `k8s/README.md`):
 
 ```bash
-minikube start
-eval $(minikube docker-env)
+minikube start --driver=docker
 docker build -f docker/Dockerfile -t cardiorisk-api:local .
+minikube image load cardiorisk-api:local
 
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
@@ -361,8 +360,13 @@ minikube service cardiorisk-api-service --url
 |---|---|
 | <img src="../screenshots/03_minikube_deployment.png" alt="Minikube deployment status" style="width:230pt;" /> | <img src="../screenshots/04_minikube_predict_curl.png" alt="Minikube predict curl" style="width:230pt;" /> |
 
-*(Both placeholders above - capture them after running the commands in
-`k8s/README.md` on a machine with Minikube/Docker Desktop installed.)*
+Both replicas came up `1/1 Running` and passed their readiness probes. The
+recent Minikube release uses containerd rather than Docker as its runtime,
+so `minikube docker-env` no longer applies; the locally built image is
+copied into the cluster with `minikube image load` instead, which is why
+`imagePullPolicy: IfNotPresent` is set. On the Windows Docker driver,
+`minikube service --url` opens a tunnel to `127.0.0.1`, and both a
+high-risk and a low-risk sample were scored through it.
 
 ## 10. Task 8 - Monitoring & Logging
 
@@ -394,7 +398,7 @@ docker compose up --build
 # Grafana:    http://localhost:3000 (admin/admin)
 ```
 
-<img src="../screenshots/06_grafana_dashboard.png" alt="Grafana dashboard (placeholder - replace with your own screenshot)" style="width:280pt;" />
+<img src="../screenshots/06_grafana_dashboard.png" alt="Grafana CardioRisk API monitoring dashboard with live traffic" style="width:280pt;" />
 
 ## 11. Architecture Diagram
 

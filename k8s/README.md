@@ -2,12 +2,13 @@
 
 ```bash
 # 1. Start the cluster
-minikube start
+minikube start --driver=docker
 
-# 2. Build the image *inside* Minikube's Docker daemon so the cluster can
-#    find it without needing a registry push
-eval $(minikube docker-env)       # PowerShell: & minikube -p minikube docker-env --shell powershell | Invoke-Expression
+# 2. Build the image locally and copy it into the cluster, so no registry
+#    push is needed (recent Minikube uses containerd, so `minikube
+#    docker-env` no longer works for this)
 docker build -f docker/Dockerfile -t cardiorisk-api:local .
+minikube image load cardiorisk-api:local
 
 # 3. Apply the manifests
 kubectl apply -f k8s/deployment.yaml
@@ -18,7 +19,7 @@ kubectl get pods -l app=cardiorisk-api
 kubectl get svc cardiorisk-api-service
 
 # 5. Expose the LoadBalancer service locally (Minikube has no real cloud LB)
-minikube service cardiorisk-api-service --url
+minikube service cardiorisk-api-service --url   # on Windows, keep this terminal open (it's the tunnel)
 # -> use the printed URL, e.g. curl http://127.0.0.1:PORT/health
 
 # 6. Smoke-test the endpoint
